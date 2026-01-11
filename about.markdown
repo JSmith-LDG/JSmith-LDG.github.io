@@ -51,7 +51,7 @@ title: About
 </section>
 
 <!-- Education Section -->
-<section id="education">
+<!-- <section id="education">
   <div class="container">
     <h2>Education</h2>
     <div class="education-item">
@@ -60,7 +60,7 @@ title: About
       <p>Graduated: Year</p>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Additional Information -->
 <section id="additional-info">
