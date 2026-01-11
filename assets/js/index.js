@@ -1,69 +1,98 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // const themeToggleButton = document.getElementById('theme-toggle');
-  // const icon = themeToggleButton.querySelector('.icon');
-  // const currentTheme = localStorage.getItem('theme') || 'light-mode';
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
 
-  // // Apply the current theme with transition
-  // document.body.classList.add(currentTheme);
-  // document.body.style.transition = 'background-color 0.5s, color 0.5s';
+  // Enhanced navigation highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.site-nav a');
 
-  // // Set the icon based on the current theme
-  // icon.textContent = currentTheme === 'light-mode' ? '🌙' : '☀️';
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
 
-  // themeToggleButton.addEventListener('click', function() {
-  //   const isLightMode = document.body.classList.contains('light-mode');
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current)) {
+        link.classList.add('active');
+      }
+    });
+  });
 
-  //   if (isLightMode) {
-  //     document.body.classList.replace('light-mode', 'dark-mode');
-  //     icon.textContent = '☀️'; // Sun icon for light mode
-  //     localStorage.setItem('theme', 'dark-mode');
-  //   } else {
-  //     document.body.classList.replace('dark-mode', 'light-mode');
-  //     icon.textContent = '🌙'; // Moon icon for dark mode
-  //     localStorage.setItem('theme', 'light-mode');
-  //   }
-  // });
+  // Add active class styling to navigation
+  const style = document.createElement('style');
+  style.textContent = `
+    .site-nav a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-bottom: 2px solid var(--accent-color);
+    }
+  `;
+  document.head.appendChild(style);
 
-  const homeButton = document.getElementById('load-home');
-  const gamesButton = document.getElementById('load-games');
-  const aboutButton = document.getElementById('load-about');
-
-  function navigateTo(url) {
-      console.log('Navigating to:', url);
-      window.location.href = url;
-  }
-
-  if (homeButton) {
-      homeButton.addEventListener('click', function() {
-          navigateTo('/'); // Adjust the URL path to match Jekyll-generated URL
-      });
-  }
-
-  if (gamesButton) {
-      gamesButton.addEventListener('click', function() {
-          navigateTo('/games'); // Adjust the URL path to match Jekyll-generated URL
-      });
-  }
-
-  if (aboutButton) {
-      aboutButton.addEventListener('click', function() {
-          navigateTo('/about'); // Adjust the URL path to match Jekyll-generated URL
-      });
-  }
-
+  // Enhanced pixel animation
   const background = document.getElementById('retro-background');
-
   function createPixels() {
-    const numberOfPixels = 200; // Adjust based on need
+    const numberOfPixels = 50; // Reduced for better performance
     for (let i = 0; i < numberOfPixels; i++) {
       const pixel = document.createElement('div');
       pixel.className = 'pixel';
-      pixel.style.left = `${Math.random() * 100}vw`; // Random position within viewport
-      pixel.style.top = `${Math.random() * 100}vh`; // Random position within viewport
+      pixel.style.left = `${Math.random() * 100}vw`;
+      pixel.style.top = `${Math.random() * 100}vh`;
+      pixel.style.animationDuration = `${Math.random() * 15 + 10}s`;
+      pixel.style.animationDelay = `${Math.random() * 5}s`;
       background.appendChild(pixel);
     }
   }
 
   createPixels();
 
+  // Add loading animation for project cards
+  const projectCards = document.querySelectorAll('.project-card');
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  projectCards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+
+  // Contact form functionality (if added later)
+  const contactForm = document.querySelector('form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Add form submission logic here
+      alert('Thank you for your message! I will get back to you soon.');
+      contactForm.reset();
+    });
+  }
 });
