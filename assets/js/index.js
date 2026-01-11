@@ -45,22 +45,21 @@ document.addEventListener('DOMContentLoaded', function() {
   `;
   document.head.appendChild(style);
 
-  // Enhanced pixel animation
-  const background = document.getElementById('retro-background');
-  function createPixels() {
-    const numberOfPixels = 50; // Reduced for better performance
-    for (let i = 0; i < numberOfPixels; i++) {
-      const pixel = document.createElement('div');
-      pixel.className = 'pixel';
-      pixel.style.left = `${Math.random() * 100}vw`;
-      pixel.style.top = `${Math.random() * 100}vh`;
-      pixel.style.animationDuration = `${Math.random() * 15 + 10}s`;
-      pixel.style.animationDelay = `${Math.random() * 5}s`;
-      background.appendChild(pixel);
-    }
-  }
-
-  createPixels();
+  // Enhanced pixel animation (commented out - retro background not in use)
+  // const background = document.getElementById('retro-background');
+  // function createPixels() {
+  //   const numberOfPixels = 50; // Reduced for better performance
+  //   for (let i = 0; i < numberOfPixels; i++) {
+  //     const pixel = document.createElement('div');
+  //     pixel.className = 'pixel';
+  //     pixel.style.left = `${Math.random() * 100}vw`;
+  //     pixel.style.top = `${Math.random() * 100}vh`;
+  //     pixel.style.animationDuration = `${Math.random() * 15 + 10}s`;
+  //     pixel.style.animationDelay = `${Math.random() * 5}s`;
+  //     background.appendChild(pixel);
+  //   }
+  // }
+  // createPixels();
 
   // Add loading animation for project cards
   const projectCards = document.querySelectorAll('.project-card');
