@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "CORECOM"
+date:   2022-12-07 08:53:32 +0800
+categories: projects
+excerpt_separator: <!--more-->
+project_url: https://www.coregames.com/games/b60d61/corecom
+description: "Team-based tactical shooter with objective-based gameplay requiring coordinated team strategies. Built Steam-integrated modding support and network-aware UI systems."
+image: assets/img/cc.jpg
+shown: True
+technologies: ["Core Games", "Lua", "Multiplayer Systems", "Game Design"]
+role: "Software Developer"
+---
+
+<img class="post-img-center" src="{{ site.baseurl }}assets/img/cc.jpg" width="460" height="215">
+
+<p class="post-text-center">Team based tactical shooter. Work together with your team to obtain the bomb and destroy the enemy's base.</p>
+
+<h3>Gameplay Systems</h3>
+<ul>
+  <li><strong>Tactical Combat:</strong> Implemented team-based combat mechanics with strategic positioning and cover systems</li>
+    <li><strong>Objective Mechanics:</strong> Developed bomb acquisition and base destruction systems for competitive gameplay</li>
+    <li><strong>Team Coordination:</strong> Created systems that encourage and reward coordinated team play</li>
+    <li><strong>Multiplayer Architecture:</strong> Built robust networking systems for smooth online tactical combat</li>
+    <li><strong>Modding Support:</strong> Built Steam-integrated modding support and network-aware UI systems</li>
+</ul>
+
+<!--more-->
+<a href="https://www.coregames.com/games/b60d61/corecom">Available here</a>

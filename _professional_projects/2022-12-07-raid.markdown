@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "R.A.I.D"
+date:   2022-12-07 08:53:33 +0800
+categories: projects
+excerpt_separator: <!--more-->
+project_url: https://www.coregames.com/games/3b6dfe/apocalypse
+description: "Lead Programmer: Engineered backend gameplay logic including trading systems, persistent storage, and asynchronous quest handling. Integrated custom AI with navmesh systems. Built Steam-integrated modding support and network-aware UI systems."
+image: assets/img/raid.jpg
+shown: True
+technologies: ["Lua", "Core Games", "AI Systems", "Navmesh", "Persistent Storage"]
+role: "Lead Programmer"
+---
+
+<img class="post-img-center" src="{{ site.baseurl }}assets/img/raid.jpg" width="460" height="215">
+
+<p class="post-text-center">R.A.I.D. is an open world survival game inspired by S.T.A.L.K.E.R. and Escape from Tarkov. You survive deep in an underground bunker, along with your guild of scavengers and raiders. Embark on missions and search for gear, loot, and supplies. Watch out for other players and scavengers... not everyone is friendly.</p>
+
+<h3>Technical Achievements</h3>
+<ul>
+  <li><strong>Trading Systems:</strong> Developed complex trading mechanics allowing players to buy, sell, and barter for essential survival resources</li>
+    <li><strong>Persistent Storage:</strong> Implemented robust data persistence systems to maintain player progress and world state across sessions</li>
+    <li><strong>Asynchronous Quests:</strong> Created quest systems that handle multiple concurrent missions with proper state management</li>
+    <li><strong>AI Integration:</strong> Integrated custom AI behaviors with navmesh systems for intelligent enemy and NPC movement</li>
+    <li><strong>Modding Support:</strong> Built Steam-integrated modding support and network-aware UI systems</li>
+    <li><strong>Core Games Platform:</strong> Leveraged Core's development tools to create a rich, interactive survival experience</li>
+</ul>
+
+<!--more-->
+<a href="https://www.coregames.com/games/3b6dfe/apocalypse">Available here</a>

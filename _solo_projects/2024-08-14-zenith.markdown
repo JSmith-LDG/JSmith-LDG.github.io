@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "Zenith"
+date:   2024-11-14 08:53:33 +0800
+categories: projects
+excerpt_separator: <!--more-->
+project_url: https://moonbase420.itch.io/zenith
+image: assets/img/zenith.png
+description: "2D Metroidvania-inspired puzzle game created in Odin using Raylib."
+shown: True
+technologies: ["Odin", "Raylib", "2D Game Development", "Metroidvania", "Puzzle Design"]
+role: "Software Developer"
+---
+
+<img class="post-img-center" src="{{ site.baseurl }}assets/img/zenith.png" width="460" height="215">
+
+<p class="post-text-center">2D Metroidvania-inspired puzzle game created in Odin using Raylib and LDTk.</p>
+
+<h3>Technical Implementation</h3>
+<ul>
+  <li><strong>Odin Programming:</strong> Developed the entire game using the Odin programming language for optimal performance and modern language features</li>
+  <li><strong>Raylib Graphics:</strong> Leveraged Raylib library for 2D rendering, input handling, and audio management</li>
+  <li><strong>Metroidvania Design:</strong> Implemented interconnected world design with ability-gated progression and exploration mechanics</li>
+  <li><strong>Puzzle Systems:</strong> Created challenging puzzle mechanics that integrate seamlessly with platforming and exploration</li>
+  <li><strong>Game Architecture:</strong> Designed modular game systems for entity management, level loading, and state management</li>
+</ul>
+
+<!--more-->
+<a href="https://moonbase420.itch.io/zenith">Play on itch.io</a>
