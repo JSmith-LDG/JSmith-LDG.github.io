@@ -72,24 +72,3 @@ title: About
     <p><strong>Cross-Team Collaboration:</strong> Strong experience working with artists, designers, and other developers in distributed team environments.</p>
   </div>
 </section>
-
-<!-- Contact Section -->
-<section id="contact">
-  <div class="container">
-    <h2>Get In Touch</h2>
-    <div class="contact-info">
-      <div class="contact-item">
-        <i class="fas fa-envelope"></i>
-        <a href="mailto:jamessmith94135@gmail.com">jamessmith94135@gmail.com</a>
-      </div>
-      <div class="contact-item">
-        <i class="fab fa-linkedin"></i>
-        <a href="https://www.linkedin.com/in/james-s-66067b176/" target="_blank">LinkedIn Profile</a>
-      </div>
-      <div class="contact-item">
-        <i class="fab fa-github"></i>
-        <a href="https://github.com/JSmith-LDG" target="_blank">GitHub Profile</a>
-      </div>
-    </div>
-  </div>
-</section>
