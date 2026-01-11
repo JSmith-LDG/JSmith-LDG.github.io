@@ -459,6 +459,7 @@ h2::after {
   color: var(--accent-color);
 }
 
+
 // Footer
 footer {
   background-color: var(--text-color);
@@ -494,18 +495,238 @@ footer {
   }
 }
 
-// Responsive Design
+// Mobile-First Responsive Design
 @media (max-width: 768px) {
+  // Base mobile improvements
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  // Hero section optimizations
+  #hero {
+    padding: 3rem 0 2rem 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-stats {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    min-height: 44px; // Touch-friendly minimum height
+    display: inline-block;
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  // Ensure hero actions buttons are properly aligned
+  .hero-actions .btn {
+    justify-self: center;
+  }
+  
+  // Fix project card buttons alignment
+  .project-card .btn {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+  }
+  
+  // Touch-friendly improvements
+  .btn:hover {
+    transform: none; // Disable hover effects on mobile
+  }
+  
+  .project-card:hover {
+    transform: none; // Disable hover effects on mobile
+  }
+  
+  .strength-card:hover {
+    transform: none; // Disable hover effects on mobile
+  }
+  
+  // Ensure all buttons are properly aligned and centered
+  .btn {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+    float: none !important;
+  }
+  
+  // Fix hero actions button alignment
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  // Fix project card button alignment
+  .project-card .btn {
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block;
+    float: none !important;
+  }
+  
+  // Override any conflicting styles
+  .hero-actions .btn {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
+  }
+  
+  // Force centering with flexbox
+  .hero-actions {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  // Section spacing improvements
+  section {
+    padding: 3rem 0;
+  }
+  
+  // Strengths grid mobile layout
+  .strengths-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .strength-card {
+    padding: 1.5rem;
+  }
+  
+  // Projects grid mobile layout
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .project-card {
+    margin-bottom: 1rem;
+  }
+  
+  .project-image {
+    height: 180px;
+  }
+  
+  .project-content {
+    padding: 1.25rem;
+  }
+  
+  .project-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  // Skills section mobile layout
+  .skills-categories {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skill-category {
+    padding: 1.5rem;
+  }
+  
+  // Experience timeline mobile adjustments
+  .timeline::before {
+    left: 25px;
+  }
+  
+  .timeline-item::before {
+    left: -27px;
+  }
+  
+  .timeline-content {
+    padding: 1.5rem;
+  }
+  
+  // Contact section mobile layout
+  .contact-info {
+    gap: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .contact-item i {
+    font-size: 1.25rem;
+  }
+  
+  // Footer mobile adjustments
+  footer {
+    padding: 1.5rem 0;
+  }
+}
+
+// Small mobile devices (phones)
+@media (max-width: 480px) {
   .hero-content h1 {
     font-size: 2rem;
   }
   
   .hero-content h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .hero-stats {
-    gap: 2rem;
+    gap: 1rem;
   }
   
   .stat-number {
@@ -513,17 +734,121 @@ footer {
   }
   
   h2 {
-    font-size: 2rem;
-  }
-  
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
+    font-size: 1.75rem;
   }
   
   .btn {
+    max-width: 260px;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    display: block;
+    margin: 0;
+    text-align: center;
+  }
+  
+  // Ensure all buttons are properly aligned on small screens
+  .hero-actions .btn,
+  .project-card .btn {
+    display: block;
+    margin: 0;
+  }
+  
+  // Fix button alignment for small mobile screens using grid
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+  }
+  
+  .hero-actions .btn {
+    justify-self: center;
+  }
+  
+  .project-card .btn {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  section {
+    padding: 2.5rem 0;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  // Timeline mobile adjustments
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  
+  .timeline::before {
+    left: 20px;
+  }
+  
+  .timeline-item::before {
+    left: -22px;
+  }
+  
+  // Contact mobile adjustments
+  .contact-info {
+    gap: 1rem;
+  }
+  
+  .contact-item {
+    gap: 0.25rem;
+  }
+  
+  .contact-item i {
+    font-size: 1.1rem;
+  }
+}
+
+// Tablet devices
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-content h1 {
+    font-size: 2.75rem;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .hero-stats {
+    gap: 2.5rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .skills-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .strengths-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Large screens
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+  
+  .hero-stats {
+    gap: 4rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
   }
 }
 
@@ -752,6 +1077,91 @@ footer {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+// Touch and mobile specific improvements
+@media (max-width: 768px) {
+  // Improve touch targets
+  .nav-link {
+    min-height: 44px; // Minimum touch target size
+    display: flex;
+    align-items: center;
+  }
+  
+  // Better spacing for mobile touch
+  .contact-item {
+    min-height: 44px;
+    padding: 0.5rem 0;
+  }
+  
+  // Improve form inputs if added later
+  input, textarea {
+    min-height: 44px;
+    font-size: 16px; // Prevent zoom on iOS
+  }
+  
+  // Better spacing for mobile reading
+  .project-description {
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  
+  // Improve image loading on mobile
+  .project-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    loading: lazy; // Native lazy loading
+  }
+  
+  // Optimize image display for different screen sizes
+  @media (max-width: 480px) {
+    .project-image {
+      height: 160px; // Smaller images on very small screens
+    }
+  }
+  
+  // Reduce image quality impact on mobile
+  .project-card {
+    will-change: auto; // Reset will-change for mobile performance
+  }
+  
+  // Better spacing for mobile cards
+  .project-card {
+    margin-bottom: 2rem;
+  }
+  
+  // Improve hero section spacing on very small screens
+  @media (max-width: 480px) {
+    .hero-content {
+      padding: 0 1rem;
+    }
+    
+    .hero-stats {
+      gap: 1rem;
+    }
+    
+    .btn {
+      font-size: 0.95rem;
+      padding: 0.8rem 1.2rem;
+    }
+  }
+  
+  // Mobile performance optimizations
+  * {
+    -webkit-tap-highlight-color: transparent; // Remove tap highlight
+  }
+  
+  // Prevent horizontal scrolling
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  // Improve mobile scrolling performance
+  .container {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
