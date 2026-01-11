@@ -6,7 +6,7 @@ categories: projects
 excerpt_separator: <!--more-->
 image: assets/img/sentience.png
 description: "Innovative project exploring AI-driven gameplay systems and interactive environments."
-shown: True
+shown: False
 technologies: ["Unity", "C#", "AI Systems", "Procedural Generation"]
 role: "Software Developer"
 ---
