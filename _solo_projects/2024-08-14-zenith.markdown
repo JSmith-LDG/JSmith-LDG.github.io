@@ -6,23 +6,39 @@ categories: projects
 excerpt_separator: <!--more-->
 project_url: https://moonbase420.itch.io/zenith
 image: assets/img/zenith.png
-description: "2D Metroidvania-inspired puzzle game created in Odin using Raylib."
+description: "2D Portal Puzzle Adventure - A puzzle-platformer with portal gun mechanics, physics-based gameplay, and a modern responsive UI system built with Odin and Raylib."
 shown: True
-technologies: ["Odin", "Raylib", "2D Game Development", "Metroidvania", "Puzzle Design"]
+technologies: ["Odin", "Raylib", "2D Game Development", "Portal Mechanics", "Physics-Based Platforming", "Modern UI", "Multi-Platform Development", "Hot Reload"]
 role: "Software Developer"
 ---
 
 <img class="post-img-center" src="{{ site.baseurl }}assets/img/zenith.png" width="460" height="215">
 
-<p class="post-text-center">2D Metroidvania-inspired puzzle game created in Odin using Raylib and LDTk.</p>
+<p class="post-text-center">2D Portal Puzzle Adventure - A puzzle-platformer with portal gun mechanics, physics-based gameplay, and a modern responsive UI system built with Odin and Raylib.</p>
+
+<h3>Key Features</h3>
+<ul>
+  <li><strong>Portal Gun Mechanics:</strong> Teleportation-based puzzle solving with portal trajectory and surface detection</li>
+  <li><strong>Physics-Based Platforming:</strong> Gravity manipulation, wall jumping, double jumping, and momentum-based movement</li>
+  <li><strong>Interactive Obstacles:</strong> Moving spikes, laser barriers, force fields, gravity wells, and switch-controlled doors</li>
+  <li><strong>Progressive Ability System:</strong> Unlock new abilities (double jump, wall jump) as you progress through levels</li>
+  <li><strong>Modern UI System:</strong> Production-ready responsive interface with dropdown controls, scrollable sections, and real-time settings</li>
+  <li><strong>Combat & Death System:</strong> Enhanced damage system with visual effects, knockback, and smooth death transitions</li>
+  <li><strong>Checkpoint System:</strong> Automatic checkpoints at level transitions and ability pickups with proper save/load mechanics</li>
+  <li><strong>Multi-Platform Support:</strong> Fully functional on Windows, macOS, Linux, and web browsers</li>
+  <li><strong>Hot Reload Development:</strong> Instant code changes without restarting the game for rapid iteration</li>
+</ul>
 
 <h3>Technical Implementation</h3>
 <ul>
-  <li><strong>Odin Programming:</strong> Developed the entire game using the Odin programming language for optimal performance and modern language features</li>
+  <li><strong>Odin Programming:</strong> Entire game developed using the Odin programming language for optimal performance and modern language features</li>
   <li><strong>Raylib Graphics:</strong> Leveraged Raylib library for 2D rendering, input handling, and audio management</li>
-  <li><strong>Metroidvania Design:</strong> Implemented interconnected world design with ability-gated progression and exploration mechanics</li>
-  <li><strong>Puzzle Systems:</strong> Created challenging puzzle mechanics that integrate seamlessly with platforming and exploration</li>
-  <li><strong>Game Architecture:</strong> Designed modular game systems for entity management, level loading, and state management</li>
+  <li><strong>LDtk Integration:</strong> Visual level editor with comprehensive entity system and custom field types</li>
+  <li><strong>Modular Architecture:</strong> Clear separation of concerns with systems for rendering, physics, input, audio, and entity management</li>
+  <li><strong>Memory Safety:</strong> Static arrays, proper cleanup systems, and comprehensive memory management</li>
+  <li><strong>Responsive Design:</strong> UI automatically adapts to different screen resolutions from 720p to 4K</li>
+  <li><strong>Smooth Animations:</strong> Professional visual effects with smooth transitions and hover effects</li>
+  <li><strong>Comprehensive Documentation:</strong> Extensive technical documentation with API references and design guidelines</li>
 </ul>
 
 <!--more-->
