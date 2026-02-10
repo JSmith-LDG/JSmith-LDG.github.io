@@ -8,7 +8,7 @@ project_url: https://moonbase420.itch.io/zenith
 image: assets/img/zenith.png
 description: "2D Portal Puzzle Adventure - A puzzle-platformer with portal gun mechanics, physics-based gameplay, and a modern responsive UI system built with Odin and Raylib."
 shown: True
-technologies: ["Odin", "Raylib", "2D Game Development", "Portal Mechanics", "Physics-Based Platforming", "Modern UI", "Multi-Platform Development", "Hot Reload"]
+technologies: ["Odin", "Raylib"]
 role: "Software Developer"
 ---
 
