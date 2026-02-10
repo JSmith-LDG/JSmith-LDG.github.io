@@ -108,18 +108,19 @@ title: Home
   <div class="container">
     <h2>Technical Skills</h2>
     <div class="skills-categories">
-      <div class="skill-category">
-        <h3>Languages</h3>
-        <ul class="skills-list">
-          <li>C#</li>
-          <li>Java</li>
-          <li>Kotlin</li>
-          <li>Python</li>
-          <li>Typescript</li>
-          <li>Luau</li>
-          <li>Rust</li>
-        </ul>
-      </div>
+       <div class="skill-category">
+         <h3>Languages</h3>
+         <ul class="skills-list">
+           <li>C#</li>
+           <li>Java</li>
+           <li>Kotlin</li>
+           <li>Python</li>
+           <li>Typescript</li>
+           <li>Luau</li>
+           <li>Rust</li>
+           <li>Odin</li>
+         </ul>
+       </div>
       <div class="skill-category">
         <h3>Game Engines</h3>
         <ul class="skills-list">
@@ -130,16 +131,18 @@ title: Home
           <li>LibGDX</li>
         </ul>
       </div>
-      <div class="skill-category">
-        <h3>Tools & Systems</h3>
-        <ul class="skills-list">
-          <li>Git/GitLab CI/CD</li>
-          <li>Perforce</li>
-          <li>Visual Studio</li>
-          <li>IntelliJ IDEA</li>
-          <li>PlasticSCM</li>
-        </ul>
-      </div>
+       <div class="skill-category">
+         <h3>Tools & Systems</h3>
+         <ul class="skills-list">
+           <li>Git/GitLab CI/CD</li>
+           <li>Perforce</li>
+           <li>Visual Studio</li>
+           <li>IntelliJ IDEA</li>
+           <li>PlasticSCM</li>
+           <li>Raylib</li>
+           <li>LDtk</li>
+         </ul>
+       </div>
     </div>
   </div>
 </section>
