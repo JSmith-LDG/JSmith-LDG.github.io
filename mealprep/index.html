@@ -1,0 +1,145 @@
+---
+permalink: /mealprep/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meal Prep Plan Generator</title>
+<style>
+  :root{--bg:#0f1117;--card:#1a1d27;--txt:#e7e9ee;--mut:#9aa0ad;--acc:#ff6b35}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;padding:1rem}
+  .wrap{max-width:680px;margin:0 auto}
+  h1{font-size:1.6rem;margin-bottom:.3rem}
+  p.sub{color:var(--mut);margin-bottom:1.2rem}
+  label{display:block;margin:.6rem 0 .2rem;color:var(--mut);font-size:.9rem}
+  input,select{width:100%;padding:.6rem;border-radius:8px;border:1px solid #2a2e3a;background:#11141c;color:var(--txt);font-size:1rem}
+  button{margin-top:1rem;width:100%;background:var(--acc);color:#fff;border:none;font-weight:700;padding:.85rem;border-radius:10px;font-size:1.05rem;cursor:pointer}
+  .out{margin-top:1.5rem;background:var(--card);border-radius:12px;padding:1.2rem;white-space:pre-wrap;display:none}
+  .grocery{margin-top:1rem}
+  .day{margin:.8rem 0}
+  .day b{color:var(--acc)}
+  .tot{color:var(--mut);font-size:.85rem}
+  textarea{width:100%;height:340px;background:#11141c;color:var(--txt);border:1px solid #2a2e3a;border-radius:8px;padding:.8rem;font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+  .copy{background:#2a2e3a;margin-top:.5rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Meal Prep Plan Generator</h1>
+  <p class="sub">Tell it your calories and diet. Get a 7-day plan + grocery list. Runs in your browser, nothing leaves your computer.</p>
+
+  <label>Daily calorie target</label>
+  <input id="cal" type="number" value="2000" min="1000" max="4000">
+
+  <label>Diet</label>
+  <select id="diet">
+    <option value="omni">Omnivore</option>
+    <option value="veg">Vegetarian</option>
+    <option value="keto">Keto</option>
+  </select>
+
+  <label>Days</label>
+  <input id="days" type="number" value="7" min="1" max="14">
+
+  <button onclick="generate()">Make my plan</button>
+
+  <div class="out" id="out">
+    <div id="plan"></div>
+    <div class="grocery"><b>Grocery list</b><div id="grocery"></div></div>
+    <button class="copy" onclick="copyAll()">Copy plan + grocery list</button>
+  </div>
+</div>
+
+<script>
+const FOODS = {
+  omni: [
+    ["Chicken breast","protein",165,31,0,3.6],["Salmon fillet","protein",208,20,0,13],
+    ["Ground turkey","protein",170,22,0,9],["Eggs (2)","protein",140,12,1,10],
+    ["Greek yogurt","protein",100,17,6,0.7],["Shrimp","protein",99,24,0,0.3],
+    ["White rice (1c)","carb",205,4,45,0.4],["Oats (1/2c)","carb",150,5,27,3],
+    ["Sweet potato","carb",112,2,26,0.1],["Whole wheat pasta","carb",180,7,37,1.3],
+    ["Quinoa (1c)","carb",222,8,39,3.6],["Broccoli","veg",55,4,11,0.6],
+    ["Spinach","veg",23,3,4,0.4],["Bell pepper","veg",30,1,6,0.3],
+    ["Mixed greens","veg",20,2,4,0.2],["Avocado (1/2)","fat",120,1,6,11],
+    ["Olive oil (1tbsp)","fat",119,0,0,14],["Almonds (1oz)","fat",164,6,6,14],
+    ["Peanut butter (1tbsp)","fat",94,4,3,8],["Cheddar (1oz)","fat",113,7,1,9]
+  ],
+  veg: [
+    ["Tofu (1/2 block)","protein",180,20,4,11],["Greek yogurt","protein",100,17,6,0.7],
+    ["Eggs (2)","protein",140,12,1,10],["Cottage cheese","protein",120,14,5,5],
+    ["Lentils (1c)","protein",230,18,40,1],["Black beans (1c)","protein",227,15,41,0.9],
+    ["Tempeh","protein",190,20,9,11],["White rice (1c)","carb",205,4,45,0.4],
+    ["Oats (1/2c)","carb",150,5,27,3],["Sweet potato","carb",112,2,26,0.1],
+    ["Whole wheat pasta","carb",180,7,37,1.3],["Quinoa (1c)","carb",222,8,39,3.6],
+    ["Broccoli","veg",55,4,11,0.6],["Spinach","veg",23,3,4,0.4],
+    ["Bell pepper","veg",30,1,6,0.3],["Mixed greens","veg",20,2,4,0.2],
+    ["Avocado (1/2)","fat",120,1,6,11],["Olive oil (1tbsp)","fat",119,0,0,14],
+    ["Almonds (1oz)","fat",164,6,6,14],["Peanut butter (1tbsp)","fat",94,4,3,8],
+    ["Feta (1oz)","fat",75,4,1,6]
+  ],
+  keto: [
+    ["Chicken thigh","protein",180,19,0,11],["Salmon fillet","protein",208,20,0,13],
+    ["Ground beef","protein",250,20,0,19],["Eggs (2)","protein",140,12,1,10],
+    ["Bacon (2 strips)","protein",90,6,0,7],["Shrimp","protein",99,24,0,0.3],
+    ["Broccoli","veg",55,4,11,0.6],["Spinach","veg",23,3,4,0.4],
+    ["Bell pepper","veg",30,1,6,0.3],["Zucchini","veg",20,1,4,0.3],
+    ["Avocado (1/2)","fat",120,1,6,11],["Olive oil (1tbsp)","fat",119,0,0,14],
+    ["Almonds (1oz)","fat",164,6,6,14],["Peanut butter (1tbsp)","fat",94,4,3,8],
+    ["Cheddar (1oz)","fat",113,7,1,9],["Butter (1tbsp)","fat",100,0,0,11],
+    ["Cream cheese (1oz)","fat",100,2,1,10]
+  ]
+};
+const MEALS = ["Breakfast","Lunch","Dinner","Snack"];
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function buildDay(diet, cal){
+  const f = FOODS[diet];
+  const by = c => f.filter(x=>x[1]===c);
+  const P=by("protein"),C=by("carb"),V=by("veg"),Ft=by("fat");
+  const plan={}; let t=[0,0,0,0];
+  const add=(s,it)=>{ (plan[s]=plan[s]||[]).push(it[0]); t[0]+=it[2];t[1]+=it[3];t[2]+=it[4];t[3]+=it[5]; };
+  add("Breakfast",pick(P)); add("Breakfast",pick(C));
+  add("Lunch",pick(P)); add("Lunch",pick(V)); add("Lunch",pick(C)); add("Lunch",pick(Ft));
+  add("Dinner",pick(P)); add("Dinner",pick(V)); add("Dinner",pick(C)); add("Dinner",pick(Ft));
+  add("Snack",pick(Ft)); add("Snack",pick(P));
+  return {plan,t};
+}
+function generate(){
+  const cal=+document.getElementById("cal").value||2000;
+  const diet=document.getElementById("diet").value;
+  const days=Math.min(14,+document.getElementById("days").value||7);
+  let planHtml="", grocery={}, full="";
+  full += `MEAL PREP PLAN - ${cal} kcal/day - ${diet} - ${days} days\n${"=".repeat(40)}\n`;
+  for(let d=1; d<=days; d++){
+    const {plan,t}=buildDay(diet,cal);
+    planHtml += `<div class="day"><b>Day ${d}</b><br>`;
+    full += `\nDAY ${d}\n`;
+    for(const m of MEALS){
+      const items=plan[m]||[];
+      if(items.length){
+        planHtml += `${m}: ${items.join(", ")}<br>`;
+        full += `  ${m}: ${items.join(", ")}\n`;
+        items.forEach(it=>grocery[it]=(grocery[it]||0)+1);
+      }
+    }
+    planHtml += `<span class="tot">~${t[0]|0} kcal | P${t[1]|0} C${t[2]|0} F${t[3]|0}</span></div>`;
+    full += `  (~${t[0]|0} kcal | P${t[1]|0} C${t[2]|0} F${t[3]|0})\n`;
+  }
+  let gHtml="<ul>", gFull="\nGROCERY LIST\n"+"=".repeat(20)+"\n";
+  for(const k in grocery){ gHtml+=`<li>${k} x${grocery[k]}</li>`; gFull+=`  [ ] ${k} x${grocery[k]}\n`; }
+  gHtml+="</ul>";
+  document.getElementById("plan").innerHTML=planHtml;
+  document.getElementById("grocery").innerHTML=gHtml;
+  document.getElementById("out").style.display="block";
+  document.getElementById("out").dataset.full=full+gFull;
+}
+function copyAll(){
+  const t=document.getElementById("out").dataset.full||"";
+  navigator.clipboard.writeText(t);
+  alert("Copied to clipboard");
+}
+</script>
+</body>
+</html>
