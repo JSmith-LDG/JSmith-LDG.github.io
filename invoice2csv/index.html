@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoice2CSV — turn invoices & receipts into clean CSV (private, in-browser)</title>
+<meta name="description" content="Paste invoice text or drop a PDF. Extract vendor, date, amount, tax and line items into a downloadable CSV. Nothing leaves your browser.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  :root{--bg:#0f1117;--card:#1a1d27;--txt:#e7e9ee;--mut:#9aa0ad;--acc:#ff6b35}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;padding:0 1rem}
+  .wrap{max-width:780px;margin:0 auto;padding:2.5rem 0}
+  h1{font-size:1.9rem;margin-bottom:.3rem}
+  .tag{color:var(--acc);font-weight:700;font-size:.95rem}
+  p.lead{color:var(--mut);margin:.4rem 0 1.2rem}
+  .box{background:var(--card);border:1px solid #262a36;border-radius:12px;padding:1.2rem;margin-bottom:1rem}
+  textarea{width:100%;min-height:140px;background:#0c0e14;color:var(--txt);border:1px solid #2a2f3c;border-radius:8px;padding:.7rem;font-family:monospace;font-size:.9rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.7rem}
+  button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:.6rem 1.1rem;font-weight:700;cursor:pointer;font-size:.95rem}
+  button.sec{background:#2a2f3c;color:var(--txt)}
+  input[type=file]{color:var(--mut);font-size:.85rem}
+  table{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:.85rem}
+  th,td{border:1px solid #2a2f3c;padding:.4rem .5rem;text-align:left}
+  th{background:#15181f;color:var(--mut)}
+  .note{font-size:.8rem;color:var(--mut);margin-top:.4rem}
+  a{color:var(--acc)}
+  .pro{background:#15181f;border:1px dashed #3a3f4c;border-radius:10px;padding:1rem;margin-top:1rem;font-size:.9rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Invoice2CSV</h1>
+  <div class="tag">100% private — runs in your browser. No upload, no signup.</div>
+  <p class="lead">Paste invoice/receipt text or drop a PDF. Get vendor, date, amount, tax and line items as a clean CSV you can open in Excel or Google Sheets.</p>
+
+  <div class="box">
+    <textarea id="txt" placeholder="Paste invoice text here…
+
+Example:
+  Acme LLC
+  Invoice #1023
+  Date: 2026-07-14
+  Subtotal: $1,200.00
+  Tax (8%): $96.00
+  Total: $1,296.00"></textarea>
+    <div class="row">
+      <button onclick="extract()">Extract → CSV</button>
+      <span class="note">or</span>
+      <input type="file" id="pdf" accept="application/pdf" onchange="fromPDF(event)">
+    </div>
+    <div class="note">PDF parsing uses pdf.js in-browser. Your file never leaves this page.</div>
+  </div>
+
+  <div class="box" id="out" style="display:none">
+    <div id="summary" class="note"></div>
+    <table id="tbl"></table>
+    <div class="row">
+      <button class="sec" onclick="downloadCSV()">Download CSV</button>
+    </div>
+  </div>
+
+  <div class="pro">
+    <strong>Want more than manual extraction?</strong> Get the <em>Small Business Software Cost-Cutter</em> — 100+ free/cheap alternatives to expensive SaaS (CRM, invoicing, email, analytics) with exact switching steps. Stop paying $200/mo for tools a solo owner doesn't need.
+    <br><a href="https://devilishgames.gumroad.com/l/oxqvfi" target="_blank">Get it on Gumroad →</a>
+  </div>
+
+  <footer style="margin-top:2rem;color:var(--mut);font-size:.8rem;border-top:1px solid #262a36;padding-top:1rem">
+    Built by a solo founder who was tired of $50/mo invoice tools. Free forever for manual use.
+  </footer>
+</div>
+
+<script>
+function parseInvoice(text){
+  const get = (re, def="") => { const m = text.match(re); return m ? m[1].trim() : def; };
+  const vendor = get(/^([^\n]+)/i, "") || get(/from[:\s]+([^\n]+)/i, "");
+  const invoiceNo = get(/invoice\s*#?\s*[:\s]*([A-Za-z0-9\-]+)/i, "");
+  const date = get(/date[:\s]+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2}|[0-9]{1,2}[\/\-][0-9]{1,2}[\/\-][0-9]{2,4})/i, "");
+  const total = get(/total[:\s]*\$?\s*([0-9,]+\.[0-9]{2})/i, get(/amount\s*due[:\s]*\$?\s*([0-9,]+\.[0-9]{2})/i, "0.00"));
+  const tax = get(/tax[^0-9]*\$?\s*([0-9,]+\.[0-9]{2})/i, "0.00");
+  const subtotal = get(/subtotal[:\s]*\$?\s*([0-9,]+\.[0-9]{2})/i, total);
+  return {vendor, invoiceNo, date, subtotal, tax, total};
+}
+function extract(){
+  const text = document.getElementById("txt").value;
+  if(!text.trim()){ alert("Paste some invoice text first."); return; }
+  const d = parseInvoice(text);
+  const rows = [d];
+  render(rows);
+}
+function render(rows){
+  const t = document.getElementById("tbl");
+  const heads = ["Vendor","Invoice #","Date","Subtotal","Tax","Total"];
+  let h = "<tr>"+heads.map(x=>"<th>"+x+"</th>").join("")+"</tr>";
+  rows.forEach(r=>{
+    h += "<tr>"+[r.vendor,r.invoiceNo,r.date,r.subtotal,r.tax,r.total].map(x=>"<td>"+(x||"").replace(/</g,"&lt;")+"</td>").join("")+"</tr>";
+  });
+  t.innerHTML = h;
+  document.getElementById("summary").textContent = rows.length + " invoice(s) extracted.";
+  document.getElementById("out").style.display = "block";
+  window.__rows = rows;
+}
+function downloadCSV(){
+  const rows = window.__rows || [];
+  const heads = ["Vendor","Invoice #","Date","Subtotal","Tax","Total"];
+  let csv = heads.join(",")+"\n";
+  rows.forEach(r=>{ csv += [r.vendor,r.invoiceNo,r.date,r.subtotal,r.tax,r.total].map(x=>'"'+(x||"").replace(/"/g,'""')+'"').join(",")+"\n"; });
+  const blob = new Blob([csv], {type:"text/csv"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "invoices.csv"; a.click();
+}
+async function fromPDF(e){
+  const file = e.target.files[0]; if(!file) return;
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  let text = "";
+  for(let i=1;i<=pdf.numPages;i++){
+    const page = await pdf.getPage(i);
+    const tc = await page.getTextContent();
+    text += tc.items.map(it=>it.str).join(" ") + "\n";
+  }
+  document.getElementById("txt").value = text;
+  extract();
+}
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
+</body>
+</html>
